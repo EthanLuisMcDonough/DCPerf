@@ -134,12 +134,12 @@ fi
 
 # Installing folly
 if ! [ -d "folly" ]; then
-    git clone https://github.com/facebook/folly
+    git clone https://github.com/EthanLuisMcDonough/folly
 else
     echo "[DOWNLOADED] folly"
 fi
 pushd folly
-git checkout v2024.06.24.00
+git switch tao_bench_llvm_libc
 git checkout -- .
 git apply "${BENCHPRESS_ROOT}/packages/tao_bench/folly_zlib_uri.patch"
 sed -i 's/FOLLY_ALWAYS_INLINE//g' "${TAO_BENCH_ROOT}/folly/folly/experimental/symbolizer/StackTrace.cpp"

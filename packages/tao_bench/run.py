@@ -123,6 +123,7 @@ def profile_server():
     # check if an existing profile data already exists
     if os.path.exists("perf.data"):
         return
+    print("RECORDING PERF")
     p_prof = subprocess.run(
         ["perf", "record", "-a", "-g", "-o", "perf.data", "--", "sleep", "5"]
     )

@@ -99,28 +99,26 @@ fi
 # Install openssl
 if ! [ -d "openssl" ]; then
     git clone --branch "${OPENSSL_BRANCH}" --depth 1 https://github.com/openssl/openssl.git
-    pushd openssl/
-    ./config --prefix="${TAO_BENCH_DEPS}" --libdir=lib
-    make -j"${NUM_BUILD_JOBS}"
-    make install
-    popd
-else
-    echo "[SKIPPED] OpenSSL (${OPENSSL_BRANCH})"
 fi
+
+pushd openssl/
+./config --prefix="${TAO_BENCH_DEPS}" --libdir=lib
+make -j"${NUM_BUILD_JOBS}"
+make install
+popd
 
 # Install libevent
 if ! [ -d "libevent" ]; then
     git clone --branch release-2.1.12-stable https://github.com/libevent/libevent
-    pushd libevent/
-    ./autogen.sh
-    ./configure --prefix="${TAO_BENCH_DEPS}" PKG_CONFIG_PATH="${TAO_BENCH_DEPS}/lib/pkgconfig" \
-        LDFLAGS="-L${TAO_BENCH_DEPS}/lib" CPPFLAGS="-I${TAO_BENCH_DEPS}/include"
-    make -j"${NUM_BUILD_JOBS}"
-    make install
-    popd
-else
-    echo "[SKIPPED] libevent-2.1.12"
 fi
+
+pushd libevent/
+./autogen.sh
+./configure --prefix="${TAO_BENCH_DEPS}" PKG_CONFIG_PATH="${TAO_BENCH_DEPS}/lib/pkgconfig" \
+            LDFLAGS="-L${TAO_BENCH_DEPS}/lib" CPPFLAGS="-I${TAO_BENCH_DEPS}/include"
+make -j"${NUM_BUILD_JOBS}"
+make install
+popd
 
 # Download binutils
 BINUTILS_TARBALL_PATH="${FOLLY_BUILD_ROOT}/downloads/libiberty-binutils-2.42.tar.xz"

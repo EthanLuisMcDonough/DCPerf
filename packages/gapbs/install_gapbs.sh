@@ -23,7 +23,7 @@ BENCHPRESS_ROOT="$(readlink -f "${SCRIPT_DIR}/../..")"
 # shellcheck source=../common/os-distro.sh
 source "${BENCHPRESS_ROOT}/packages/common/os-distro.sh"
 
-GAPBS_GIT_REPO_URL="https://github.com/sbeamer/gapbs.git"
+GAPBS_GIT_REPO_URL="https://github.com/EthanLuisMcDonough/gapbs.git"
 GAPBS_GIT_COMMIT_TAG="v1.1"
 
 # Install the toolchain (compiler, make, git) with the native package manager.
@@ -62,7 +62,8 @@ else
     git clone "${GAPBS_GIT_REPO_URL}"
 fi
 cd gapbs/ || exit 1
-git checkout -b benchpress "tags/${GAPBS_GIT_COMMIT_TAG}"
+git switch dcperf
+#git checkout -b benchpress "tags/${GAPBS_GIT_COMMIT_TAG}"
 
 make -j"$(nproc)"
 
